@@ -45,6 +45,12 @@ const params = new URLSearchParams(location.search);
 const estado = params.get('estado') || 'exito';
 const cursoId = (params.get('curso') || '').toLowerCase();
 
+// Analítica (mismos IDs que la landing)
+const GA4_ID='G-RB86DDGWYJ', META_PIXEL_ID='';
+if(GA4_ID){var _s=document.createElement('script');_s.async=true;_s.src='https://www.googletagmanager.com/gtag/js?id='+GA4_ID;document.head.appendChild(_s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config',GA4_ID);}
+if(META_PIXEL_ID){!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',META_PIXEL_ID);fbq('track','PageView');}
+function trackConv(ga,fb,params){try{if(window.gtag)gtag('event',ga,params||{});}catch(e){}try{if(window.fbq)fbq('track',fb,params||{});}catch(e){}}
+
 const NOMBRES = {
   lif:'Lifting de pestañas', cor:'Lifting de pestañas · Técnica Coreana', tej:'Diseño de cejas con tinte',
   lam:'Laminado de cejas', man:'Manicure inicial · Esmaltado permanente con torno', mav:'Manicure avanzada · Técnica rusa'
@@ -60,6 +66,7 @@ function waLink(msg){ return 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIC
 let html = '';
 if (estado === 'exito') {
   const code = genCode();
+  trackConv('purchase','Purchase',{transaction_id:code,currency:'CLP',items:[{item_id:cursoId,item_name:cursoNombre}]});
   html = `
     <div class="badge ok">✓</div>
     <h1>¡Pago confirmado!</h1>

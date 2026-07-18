@@ -955,6 +955,7 @@ function openModal(id){
   showStep('modalidad');
   document.getElementById('modal-compra').style.display='flex';
   document.body.style.overflow='hidden';
+  trackConv('begin_checkout','InitiateCheckout',{currency:'CLP',items:[{item_id:id,item_name:selCourse.name}]});
 }
 function closeModal(){
   document.getElementById('modal-compra').style.display='none';
@@ -1142,7 +1143,7 @@ document.querySelectorAll('.rv,[data-stag]').forEach(el=>obs.observe(el));
 
 // ── ANALÍTICA ─────────────────────────────────────────────────────────────────
 // Pega tus IDs aquí cuando los tengas y se activan solos. Vacío = desactivado.
-const GA4_ID = '';          // Google Analytics 4, ej: 'G-XXXXXXXXXX'
+const GA4_ID = 'G-RB86DDGWYJ';  // Google Analytics 4
 const META_PIXEL_ID = '';   // Meta (Facebook/Instagram) Pixel, ej: '123456789012345'
 
 if (GA4_ID) {
@@ -1158,6 +1159,10 @@ if (META_PIXEL_ID) {
   t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init',META_PIXEL_ID); fbq('track','PageView');
+}
+function trackConv(ga, fb, params){
+  try{ if(window.gtag) gtag('event', ga, params||{}); }catch(e){}
+  try{ if(window.fbq) fbq('track', fb, params||{}); }catch(e){}
 }
 </script>
 </body>
