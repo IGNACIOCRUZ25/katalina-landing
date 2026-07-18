@@ -63,6 +63,29 @@ Esta guía cubre **las tareas que debes hacer tú** (crear cuentas y registrar e
 
 ---
 
+## Pago automático + entrega segura (variables de entorno en Vercel)
+
+El pago y la entrega automática ya están programados. Para activarlos, agrega estas variables en
+**Vercel → proyecto → Settings → Environment Variables** (marca *Production*) y relanza el despliegue:
+
+| Variable | Qué es | Dónde se obtiene |
+|---|---|---|
+| `MP_ACCESS_TOKEN` | Clave secreta de Mercado Pago (producción, `APP_USR-…`) | mercadopago.cl/developers/panel → Credenciales de producción |
+| `RESEND_API_KEY` | Clave para enviar correos automáticos | resend.com → API Keys |
+| `EMAIL_FROM` | Remitente de los correos | Ej: `Katalina Beauty Salon <hola@katalinasalon.cl>` (dominio verificado en Resend) |
+| `EMAIL_NOTIF` | Correo donde llegan los avisos de venta | El correo de Katalina |
+
+Opcionales: `SKEDU_URL` (por defecto tu Skedu), `WHATSAPP` (por defecto +56 9 3714 2655).
+
+**Enlaces de los cursos:** los enlaces de Drive de cada curso van en `api/_cursos.js` (campo `drive`).
+Envíame los enlaces y los dejo cargados.
+
+**Seguridad anti-fraude:** la entrega NO se dispara desde la pantalla de "gracias". Se dispara desde
+`api/webhook-mercadopago.js`, que le pregunta a Mercado Pago si el pago está realmente aprobado antes de
+entregar. El aviso de Mercado Pago se configura solo (via `notification_url`), no hay que tocar el panel.
+
+---
+
 ## ¿Cómo editamos después de publicar?
 
 - **Texto/precio simple:** lo editas en GitHub (web) o me lo pides.
