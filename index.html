@@ -492,7 +492,7 @@ input:focus{outline:1.5px solid #79693A}
           </div>
           <div style="display:flex;align-items:center;gap:12px;border:1px solid rgba(121,105,58,.16);border-radius:12px;padding:14px 16px;background:#fff">
             <div style="width:34px;height:34px;border-radius:8px;background:#E9E5DA;display:flex;align-items:center;justify-content:center;font-size:16px">🏦</div>
-            <div><div style="font-size:14px;font-weight:500;color:#3a3428">Transferencia</div><div style="font-size:12px;color:#7a7364">Te enviamos los datos al confirmar</div></div>
+            <div><div style="font-size:14px;font-weight:500;color:#3a3428">Transferencia</div><div style="font-size:12px;color:#7a7364">Disponible dentro de Mercado Pago</div></div>
           </div>
         </div>
         <div id="bump-row" onclick="toggleBump()" style="cursor:pointer;display:flex;align-items:center;gap:12px;border:1.5px solid rgba(121,105,58,.2);background:#f8f8f6;border-radius:12px;padding:13px 15px;margin-bottom:16px">
@@ -503,8 +503,8 @@ input:focus{outline:1.5px solid #79693A}
           <span style="font-size:14px;color:#6b6354">Total · <span id="modality-label"></span></span>
           <span id="sel-total" style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#79693A;font-weight:600"></span>
         </div>
-        <button onclick="submitForm()" class="btnG" style="display:block;width:100%;text-align:center;background:#79693A;color:#fff;padding:15px;border-radius:100px;font-size:15.5px;font-weight:500;letter-spacing:.02em">Finalizar inscripción</button>
-        <div id="submit-help" style="text-align:center;font-size:11.5px;color:#9a9182;margin-top:12px"></div>
+        <button id="btn-pagar" onclick="submitForm()" class="btnG" style="display:block;width:100%;text-align:center;background:#79693A;color:#fff;padding:15px;border-radius:100px;font-size:15.5px;font-weight:500;letter-spacing:.02em">Pagar con Mercado Pago →</button>
+        <div id="submit-help" style="text-align:center;font-size:11.5px;color:#9a9182;margin-top:12px">Pago seguro con tarjeta, débito o cuotas · Acceso inmediato</div>
       </div>
       <div id="step-ok" style="display:none;text-align:center">
         <div style="width:56px;height:56px;border-radius:50%;background:#E9E5DA;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:26px;color:#79693A">✓</div>
@@ -809,10 +809,34 @@ function toggleBump(){
 }
 function backToModal(){ showStep('modalidad'); }
 function genCode(){ return selCourse.id.toUpperCase()+'-'+Math.random().toString(36).slice(2,8).toUpperCase(); }
-function submitForm(){
+
+async function submitForm(){
   const nombre=document.getElementById('f-nombre').value.trim();
   const fono=document.getElementById('f-fono').value.trim();
   const correo=document.getElementById('f-correo').value.trim();
+  const bumpCourse = bumpOn ? courses.find(b=>b.id!==selCourse.id && b.online) : null;
+  const btn=document.getElementById('btn-pagar');
+  const help=document.getElementById('submit-help');
+  const original=btn.textContent;
+  btn.textContent='Redirigiendo a Mercado Pago…';
+  btn.style.pointerEvents='none'; btn.style.opacity='.7';
+  if(help) help.textContent='Estamos preparando tu pago seguro…';
+  try{
+    const r=await fetch('/api/crear-preferencia',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({courseId:selCourse.id, modality:selModality, bumpCourseId:bumpCourse?bumpCourse.id:null, nombre, email:correo, telefono:fono})
+    });
+    const data=await r.json().catch(()=>({}));
+    if(r.ok && data.init_point){ window.location.href=data.init_point; return; }
+    fallbackWhatsApp(nombre,fono,correo); // pago aún no configurado o error → respaldo WhatsApp
+  }catch(e){
+    fallbackWhatsApp(nombre,fono,correo);
+  }finally{
+    btn.textContent=original; btn.style.pointerEvents=''; btn.style.opacity='';
+  }
+}
+
+function fallbackWhatsApp(nombre,fono,correo){
   const code=genCode();
   document.getElementById('cert-code-issued').textContent=code;
   showStep('ok');

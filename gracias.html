@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gracias · Katalina Beauty Salon Academy</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:#E9E5DA;color:#3a3428;font-family:'Jost',system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px;-webkit-font-smoothing:antialiased}
+  .card{background:#f8f8f6;border-radius:24px;max-width:480px;width:100%;padding:44px 38px;box-shadow:0 30px 70px rgba(58,52,40,.18);text-align:center}
+  .badge{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:34px}
+  .badge.ok{background:#e3ecdd;color:#4c6b45}
+  .badge.wait{background:#efe4cb;color:#8a6d2f}
+  .badge.err{background:#f4ddd5;color:#a5432f}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:32px;line-height:1.1;margin:0 0 12px}
+  p{font-size:15.5px;line-height:1.6;color:#5b5344;font-weight:300;margin:0 0 18px}
+  .code{border:1.5px dashed #79693A;border-radius:14px;padding:18px;background:#fff;margin:0 0 22px}
+  .code .lbl{font-size:10.5px;letter-spacing:.16em;color:#9a9182;margin-bottom:5px}
+  .code .val{font-family:'Cormorant Garamond',serif;font-size:30px;letter-spacing:.12em;color:#79693A;font-weight:600}
+  .btn{display:block;text-decoration:none;padding:15px;border-radius:100px;font-size:15.5px;font-weight:500;letter-spacing:.02em;margin-bottom:12px;transition:transform .25s,box-shadow .25s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(58,52,40,.16)}
+  .btn.primary{background:#79693A;color:#fff}
+  .btn.wa{background:#25D366;color:#fff}
+  .btn.ghost{background:transparent;color:#79693A;border:1px solid rgba(121,105,58,.35)}
+  .brand{margin-bottom:26px}
+  .brand b{font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:.14em;color:#79693A;font-weight:600;display:block}
+  .brand span{font-size:8px;letter-spacing:.4em;color:#a08a4f;font-weight:500}
+  .fine{font-size:12px;color:#9a9182;margin-top:6px}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand"><b>KATALINA</b><span>BEAUTY SALON ACADEMY</span></div>
+    <div id="content"></div>
+  </div>
+
+<script>
+const WHATSAPP = '56937142655';
+const params = new URLSearchParams(location.search);
+const estado = params.get('estado') || 'exito';
+const cursoId = (params.get('curso') || '').toLowerCase();
+
+const NOMBRES = {
+  lif:'Lifting de pestañas', cor:'Lifting de pestañas · Técnica Coreana', tej:'Diseño de cejas con tinte',
+  lam:'Laminado de cejas', man:'Manicure inicial · Esmaltado permanente con torno', mav:'Manicure avanzada · Técnica rusa y gel'
+};
+const cursoNombre = NOMBRES[cursoId] || 'tu curso';
+
+function genCode(){
+  const p = (cursoId || 'ksa').toUpperCase();
+  return p + '-' + Math.random().toString(36).slice(2,8).toUpperCase();
+}
+function waLink(msg){ return 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg); }
+
+let html = '';
+if (estado === 'exito') {
+  const code = genCode();
+  html = `
+    <div class="badge ok">✓</div>
+    <h1>¡Pago confirmado!</h1>
+    <p>Gracias por inscribirte en <b>${cursoNombre}</b>. Te enviamos el acceso y los detalles a tu correo. Guarda este código: valida tu compra y lo necesitarás para descargar tu certificado al terminar.</p>
+    <div class="code"><div class="lbl">TU CÓDIGO DE CERTIFICADO</div><div class="val">${code}</div></div>
+    <a class="btn wa" href="${waLink('Hola Katalina! Acabo de pagar el curso: ' + cursoNombre + '. Mi código es ' + code + '. ¿Cómo continúo?')}">Escríbenos por WhatsApp</a>
+    <a class="btn ghost" href="/">Volver al inicio</a>
+    <div class="fine">Si compraste el curso presencial, coordinamos día y hora por WhatsApp.</div>`;
+} else if (estado === 'pendiente') {
+  html = `
+    <div class="badge wait">⏳</div>
+    <h1>Tu pago está en proceso</h1>
+    <p>Estamos esperando la confirmación de <b>${cursoNombre}</b>. Apenas se acredite, te avisamos por correo y te damos el acceso. Suele tardar solo unos minutos.</p>
+    <a class="btn wa" href="${waLink('Hola Katalina! Mi pago del curso ' + cursoNombre + ' quedó pendiente. ¿Me ayudas a confirmarlo?')}">Consultar por WhatsApp</a>
+    <a class="btn ghost" href="/">Volver al inicio</a>`;
+} else {
+  html = `
+    <div class="badge err">✕</div>
+    <h1>El pago no se completó</h1>
+    <p>No se concretó el pago de <b>${cursoNombre}</b>. No te preocupes, no se realizó ningún cobro. Puedes intentarlo de nuevo o escribirnos y te ayudamos a inscribirte.</p>
+    <a class="btn primary" href="/#cursos">Intentar de nuevo</a>
+    <a class="btn wa" href="${waLink('Hola Katalina! Tuve un problema al pagar el curso ' + cursoNombre + '. ¿Me ayudas?')}">Escríbenos por WhatsApp</a>`;
+}
+document.getElementById('content').innerHTML = html;
+</script>
+</body>
+</html>
