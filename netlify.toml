@@ -1,0 +1,26 @@
+# Configuración de despliegue en Netlify — sitio estático
+[build]
+  publish = "."
+  command = ""
+
+# Seguridad y buenas prácticas
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Caché larga para imágenes y recursos estáticos
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Redirige www a dominio raíz (se activa al conectar el dominio)
+[[redirects]]
+  from = "https://www.katalinasalon.cl/*"
+  to = "https://katalinasalon.cl/:splat"
+  status = 301
+  force = true
