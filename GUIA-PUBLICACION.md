@@ -13,7 +13,7 @@ Esta guía cubre **las tareas que debes hacer tú** (crear cuentas y registrar e
 ✅ Favicon e íconos (`favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`)
 ✅ Imagen de previsualización (`assets/og-image.jpg`)
 ✅ `robots.txt` y `sitemap.xml`
-✅ `netlify.toml` (configuración de hosting)
+✅ `vercel.json` (configuración de hosting: seguridad + caché)
 ✅ Contador de oferta que ya no se reinicia
 ✅ Línea de confianza y "hasta 67% OFF"
 
@@ -32,19 +32,22 @@ Esta guía cubre **las tareas que debes hacer tú** (crear cuentas y registrar e
 2. Crea un repositorio nuevo (privado), por ejemplo `katalina-landing`.
 3. Avísame cuando esté creado: subo el proyecto ahí (o te guío para arrastrar la carpeta).
 
-## Paso 3 — Crear cuenta en Netlify (gratis) y conectar
+## Paso 3 — Publicar en Vercel (gratis) y conectar
 
-1. Entra a **https://netlify.com** → **Sign up** → entra con tu cuenta de GitHub.
-2. **Add new site → Import an existing project → GitHub** → elige el repo `katalina-landing`.
-3. Deja "Publish directory" en `.` y presiona **Deploy**.
-4. En minutos tendrás una URL tipo `katalina-landing.netlify.app` (ya en vivo, con https).
+1. Entra a **https://vercel.com** → **Sign up** → entra con tu cuenta de GitHub.
+2. **Add New… → Project → Import** el repo `katalina-landing`.
+3. Framework Preset: **Other**. Sin build command, output dir por defecto (raíz). Presiona **Deploy**.
+4. En segundos tendrás una URL tipo `katalina-landing.vercel.app` (ya en vivo, con https).
+
+> El archivo `vercel.json` ya incluye la configuración óptima (cabeceras de seguridad y caché de imágenes). No hay que tocar nada.
 
 ## Paso 4 — Conectar el dominio
 
-1. En Netlify: **Domain settings → Add a domain →** escribe `katalinasalon.cl`.
-2. Netlify te dará unos **DNS (nameservers)** o registros.
+1. En Vercel: **Settings → Domains → Add** → escribe `katalinasalon.cl` (y también `www.katalinasalon.cl`).
+2. Vercel te dará unos **registros DNS** (un registro A y/o nameservers).
 3. En NIC Chile, en la administración del dominio, pega esos datos.
 4. Espera la propagación (de minutos a unas horas). El **SSL (candado https) se activa solo**.
+5. Vercel redirige `www` al dominio raíz automáticamente al añadir ambos.
 
 ## Paso 5 — Pago automático (Mercado Pago)
 
