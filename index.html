@@ -87,13 +87,15 @@ button{font-family:'Jost',sans-serif;cursor:pointer;border:none;background:none;
 @media(prefers-reduced-motion:reduce){.rv,[data-stag]>*,.floatWrap{transition:none!important;animation:none!important;opacity:1!important;transform:none!important}}
 @media(max-width:760px){
   .navMain{display:none!important}
-  .navToggle{display:block!important}
+  .navToggle{display:block!important;padding:9px!important}
   .heroGrid,.gridBenef,.gridCursos,.gridTesti,.gridInc,.gridAbout,.gridAgenda{grid-template-columns:1fr!important;gap:30px!important}
   .gridGal{grid-template-columns:1fr 1fr!important}
   .h1Hero{font-size:38px!important}
   .secH2{font-size:32px!important}
   .agendaCard{padding:34px 22px!important}
-  .padX{padding-left:20px!important;padding-right:20px!important}
+  .padX{padding-left:20px!important;padding-right:20px!important;padding-top:52px!important;padding-bottom:52px!important}
+  .urgBar{font-size:11.5px!important;padding:8px 13px!important;gap:5px 12px!important}
+  .heroBtn{width:100%!important;text-align:center!important;padding:16px!important}
   .floatWrap{bottom:80px!important}
   .floatWrap .floatBtn:first-child{display:none!important}
   .floatWrap .floatBtn{width:50px!important;height:50px!important}
@@ -260,7 +262,7 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
 </header>
 
 <!-- URGENCY BAR -->
-<div style="background:#79693A;color:#f3efe6;text-align:center;padding:10px 20px;font-size:13.5px;letter-spacing:.03em;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap">
+<div class="urgBar" style="background:#79693A;color:#f3efe6;text-align:center;padding:10px 20px;font-size:13.5px;letter-spacing:.03em;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap">
   <span style="display:inline-flex;align-items:center;gap:8px">
     <span style="width:8px;height:8px;border-radius:50%;background:#f3d9a6;display:inline-block;animation:pulseDot 1.4s infinite"></span>
     OFERTA DE LANZAMIENTO · hasta <b style="font-weight:600">67% OFF</b> en cursos online
@@ -281,7 +283,7 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
       <h1 class="h1Hero" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:60px;line-height:1.02;margin:0 0 22px;color:#3a3428;letter-spacing:-.01em">Convierte tu pasión por la belleza en tu propio negocio</h1>
       <p style="font-size:18px;line-height:1.6;color:#5b5344;max-width:480px;margin:0 0 32px;font-weight:300">Aprende las técnicas más solicitadas del mercado con certificación profesional. Cursos <b style="font-weight:500;color:#3a3428">online y presenciales</b> diseñados para que empieces a facturar desde el primer mes.</p>
       <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
-        <a href="#cursos" class="btnG" style="background:#79693A;color:#fff;padding:16px 34px;border-radius:100px;font-size:16px;font-weight:500;letter-spacing:.02em;box-shadow:0 10px 26px rgba(121,105,58,.28)">Quiero inscribirme →</a>
+        <a href="#cursos" class="btnG heroBtn" style="background:#79693A;color:#fff;padding:16px 34px;border-radius:100px;font-size:16px;font-weight:500;letter-spacing:.02em;box-shadow:0 10px 26px rgba(121,105,58,.28)">Quiero inscribirme →</a>
         <a href="#agenda" class="linkU" style="color:#3a3428;font-size:15px;font-weight:400;padding:16px 8px;border-bottom:1px solid rgba(121,105,58,.4)">Agendar clase presencial</a>
       </div>
       <div style="display:flex;gap:26px;margin-top:40px;flex-wrap:wrap">
@@ -304,7 +306,7 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
 <section class="padX" style="max-width:1180px;margin:0 auto;padding:76px 26px 20px">
   <div class="rv" style="text-align:center;max-width:640px;margin:0 auto 50px">
     <span style="font-size:12px;letter-spacing:.24em;color:#79693A;font-weight:500">POR QUÉ ELEGIR KATALINA SALON ACADEMY</span>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:40px;line-height:1.1;margin:14px 0 0;color:#3a3428">No vendemos cursos. Formamos profesionales que viven de esto</h2>
+    <h2 class="secH2" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:40px;line-height:1.1;margin:14px 0 0;color:#3a3428">No vendemos cursos. Formamos profesionales que viven de esto</h2>
   </div>
   <div data-stag class="gridBenef" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
     <div class="card-hover" style="background:#fff;border:1px solid rgba(121,105,58,.12);border-radius:18px;padding:32px 28px">
@@ -517,10 +519,10 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
 
 <!-- RESULTADOS -->
 <section id="resultados" style="background:#E9E5DA;scroll-margin-top:80px">
-  <div style="max-width:1180px;margin:0 auto;padding:74px 26px;position:relative">
+  <div class="padX" style="max-width:1180px;margin:0 auto;padding:74px 26px;position:relative">
     <div class="rv" style="text-align:center;max-width:620px;margin:0 auto 44px">
       <span style="font-size:12px;letter-spacing:.24em;color:#79693A;font-weight:500">RESULTADOS REALES</span>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:40px;line-height:1.1;margin:14px 0 0;color:#3a3428">Trabajos de nuestras alumnas</h2>
+      <h2 class="secH2" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:40px;line-height:1.1;margin:14px 0 0;color:#3a3428">Trabajos de nuestras alumnas</h2>
     </div>
     <div data-stag class="gridGal" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:52px" id="gallery-grid">
       <div class="zoomImg galItem" style="aspect-ratio:1;border-radius:14px;overflow:hidden;background:#d6cfbf"><img src="assets/gal-01.jpeg" alt="Trabajo de alumna en lifting de pestañas" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block"></div>
@@ -565,7 +567,7 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
 <section class="rv gridInc padX" style="max-width:1180px;margin:0 auto;padding:78px 26px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center">
   <div>
     <span style="font-size:12px;letter-spacing:.24em;color:#79693A;font-weight:500">CADA CURSO INCLUYE</span>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:38px;line-height:1.1;margin:14px 0 26px;color:#3a3428">Todo lo que necesitas para empezar a facturar</h2>
+    <h2 class="secH2" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:38px;line-height:1.1;margin:14px 0 26px;color:#3a3428">Todo lo que necesitas para empezar a facturar</h2>
     <div style="display:flex;flex-direction:column;gap:16px">
       <div style="display:flex;gap:14px;align-items:flex-start"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#79693A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;margin-top:1px">✓</span><span style="font-size:15.5px;line-height:1.5;color:#4a4437;font-weight:300">Video-clases paso a paso descargables con acceso de por vida</span></div>
       <div style="display:flex;gap:14px;align-items:flex-start"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#79693A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;margin-top:1px">✓</span><span style="font-size:15.5px;line-height:1.5;color:#4a4437;font-weight:300">Lista de materiales y proveedores recomendados</span></div>
@@ -598,7 +600,7 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
     </div>
     <div>
       <span style="font-size:12px;letter-spacing:.24em;color:#79693A;font-weight:500">TU INSTRUCTORA</span>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:40px;line-height:1.08;margin:14px 0 20px;color:#3a3428">Hola, soy Katalina Alvarado</h2>
+      <h2 class="secH2" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:40px;line-height:1.08;margin:14px 0 20px;color:#3a3428">Hola, soy Katalina Alvarado</h2>
       <p style="font-size:16.5px;line-height:1.7;color:#5b5344;font-weight:300;margin:0 0 18px">Llevo años dedicada a la estética y a formar mujeres que hoy tienen su propio salón y agenda llena. Mi método es simple: técnica real, práctica desde el primer día y acompañamiento hasta que domines cada procedimiento.</p>
       <p style="font-size:16.5px;line-height:1.7;color:#5b5344;font-weight:300;margin:0 0 26px">No importa si partes de cero. Mi objetivo es que salgas lista para atender a tu primera clienta con seguridad.</p>
       <div style="display:flex;gap:14px;flex-wrap:wrap">
@@ -615,7 +617,7 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
   <div class="gridAgenda agendaCard" style="background:#E9E5DA;border-radius:24px;padding:56px 50px;display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center">
     <div>
       <span style="font-size:12px;letter-spacing:.24em;color:#79693A;font-weight:500">CLASES PRESENCIALES</span>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:38px;line-height:1.1;margin:14px 0 16px;color:#3a3428">Cómo reservas tu clase presencial</h2>
+      <h2 class="secH2" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:38px;line-height:1.1;margin:14px 0 16px;color:#3a3428">Cómo reservas tu clase presencial</h2>
       <p style="font-size:16px;line-height:1.65;color:#5b5344;font-weight:300;margin:0 0 24px">Práctica 1 a 1 con todos los materiales incluidos y cupos limitados. La clase presencial se agenda una vez comprado el curso:</p>
       <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:28px">
         <div style="display:flex;gap:14px;align-items:flex-start">
@@ -653,10 +655,10 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
 </section>
 
 <!-- FAQ -->
-<section style="max-width:820px;margin:0 auto;padding:40px 26px 90px">
+<section class="padX" style="max-width:820px;margin:0 auto;padding:40px 26px 90px">
   <div class="rv" style="text-align:center;margin-bottom:40px">
     <span style="font-size:12px;letter-spacing:.24em;color:#79693A;font-weight:500">DUDAS FRECUENTES</span>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:38px;margin:14px 0 0;color:#3a3428">Antes de inscribirte</h2>
+    <h2 class="secH2" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:38px;margin:14px 0 0;color:#3a3428">Antes de inscribirte</h2>
   </div>
   <div style="display:flex;flex-direction:column;gap:12px" id="faq-list">
     <div style="background:#fff;border:1px solid rgba(121,105,58,.14);border-radius:14px;overflow:hidden">
@@ -699,7 +701,7 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
 
 <!-- FINAL CTA -->
 <section style="background:#79693A;color:#f3efe6">
-  <div class="rv" style="max-width:820px;margin:0 auto;padding:82px 26px;text-align:center">
+  <div class="rv padX" style="max-width:820px;margin:0 auto;padding:82px 26px;text-align:center">
     <h2 class="secH2" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.08;margin:0 0 18px">Tu nueva profesión empieza hoy</h2>
     <p style="font-size:17px;line-height:1.6;opacity:.9;font-weight:300;max-width:520px;margin:0 auto 34px">La oferta de lanzamiento termina pronto. Asegura tu cupo con el precio más bajo del año.</p>
     <a href="#cursos" class="btnG" style="background:#f8f8f6;color:#79693A;padding:17px 40px;border-radius:100px;font-size:16.5px;font-weight:600;letter-spacing:.02em;box-shadow:0 12px 30px rgba(0,0,0,.2)">Ver cursos y precios</a>
