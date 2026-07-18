@@ -8,7 +8,7 @@ const CURSOS = {
   tej: { name: 'Diseño de cejas con tinte',                       online: 20000, pres: 150000, drive: '' },
   lam: { name: 'Laminado de cejas',                               online: 20000, pres: 150000, drive: '' },
   man: { name: 'Manicure inicial · Esmaltado permanente con torno',              pres: 150000, drive: '' },
-  mav: { name: 'Manicure avanzada · Técnica rusa y gel',                         pres: 150000, drive: '' },
+  mav: { name: 'Manicure avanzada · Técnica rusa',                         pres: 150000, drive: '' },
 };
 
 module.exports = { CURSOS };
