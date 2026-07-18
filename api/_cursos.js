@@ -5,8 +5,8 @@
 const CURSOS = {
   lif: { name: 'Lifting de pestañas',                              online: 30000, pres: 150000, drive: '' },
   cor: { name: 'Lifting de pestañas · Técnica Coreana',           online: 40000, pres: 150000, drive: '' },
-  tej: { name: 'Diseño de cejas con tinte',                       online: 20000, pres: 150000, drive: '' },
-  lam: { name: 'Laminado de cejas',                               online: 20000, pres: 150000, drive: '' },
+  tej: { name: 'Diseño de cejas con tinte',                       online: 20000, pres: 130000, drive: '' },
+  lam: { name: 'Laminado de cejas',                               online: 30000, pres: 150000, drive: '' },
   man: { name: 'Manicure inicial · Esmaltado permanente con torno',              pres: 150000, drive: '' },
   mav: { name: 'Manicure avanzada · Técnica rusa',                         pres: 150000, drive: '' },
 };
