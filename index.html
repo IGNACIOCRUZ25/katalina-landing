@@ -101,7 +101,35 @@ button{font-family:'Jost',sans-serif;cursor:pointer;border:none;background:none;
 .modal-cert-overlay{position:fixed;inset:0;z-index:100;background:rgba(40,36,28,.55);backdrop-filter:blur(4px);display:flex;align-items:flex-start;justify-content:center;padding:24px 16px;overflow:auto}
 .modal-cert-box{background:#f8f8f6;border-radius:22px;max-width:560px;width:100%;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.35);animation:floatUp .3s ease both;margin:auto}
 input:focus{outline:1.5px solid #79693A}
+.pblock{border-top:1px solid rgba(121,105,58,.12);padding-top:15px;margin-bottom:18px}
+.plaunch{display:inline-flex;align-items:center;gap:5px;background:rgba(121,105,58,.09);color:#79693A;font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:5px 11px;border-radius:100px;margin-bottom:13px}
+.pline{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.pmod{font-size:13px;font-weight:500;color:#3a3428;line-height:1.25}
+.pmod small{display:block;font-size:11px;font-weight:400;color:#8a8271;margin-top:2px}
+.pamt{text-align:right;white-space:nowrap;line-height:.9}
+.pwas{font-size:12.5px;color:#a49b88;text-decoration:line-through;margin-right:6px}
+.pnow{font-family:'Cormorant Garamond',serif;font-size:31px;color:#79693A;font-weight:600}
+.pnow-d{font-family:'Cormorant Garamond',serif;font-size:27px;color:#3a3428;font-weight:600}
+.pdiv{height:1px;background:rgba(121,105,58,.1);margin:12px 0}
+.pgift{display:flex;align-items:center;gap:7px;font-size:12px;color:#5f5230;font-weight:500;margin-top:11px;background:rgba(121,105,58,.07);border-radius:9px;padding:9px 11px;line-height:1.3}
+.pcuota{display:flex;align-items:center;gap:5px;font-size:11px;color:#8a8271;margin-top:8px}
 a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #79693A;outline-offset:3px;border-radius:4px}
+/* Panel de precios premium */
+.price-box{margin:0 0 18px;background:linear-gradient(180deg,#faf7f0,#f5efe4);border:1px solid rgba(121,105,58,.18);border-radius:14px;padding:15px 16px 14px}
+.price-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;min-height:20px}
+.price-elabel{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8a7a4a;font-weight:600}
+.price-off{background:#79693A;color:#f5efe0;font-size:11px;font-weight:600;letter-spacing:.02em;padding:3px 10px;border-radius:100px;white-space:nowrap;box-shadow:0 3px 8px rgba(121,105,58,.28)}
+.price-hero{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.price-now{font-family:'Cormorant Garamond',serif;font-size:37px;line-height:.9;color:#79693A;font-weight:600;letter-spacing:-.01em}
+.price-was{font-size:14px;color:#a49b88;text-decoration:line-through;font-weight:400}
+.price-save{font-size:11.5px;color:#5f6b3a;font-weight:600;margin-top:7px;display:flex;align-items:center;gap:5px;line-height:1.3}
+.price-sep{height:1px;background:rgba(121,105,58,.15);margin:12px 0 11px}
+.price-pres{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.price-pres .pl{font-size:11.5px;color:#6b6354}
+.price-pres .pv{font-family:'Cormorant Garamond',serif;font-size:21px;color:#3a3428;font-weight:600}
+.price-gift{font-size:11.5px;color:#79693A;font-weight:500;margin-top:5px;display:flex;align-items:center;gap:6px;line-height:1.3}
+.price-cuotas{font-size:11px;color:#8a8271;margin-top:9px;display:flex;align-items:center;gap:5px;line-height:1.3}
+.price-solo .price-now{font-size:33px}
 </style>
 
 <!-- Datos estructurados: organización + valoración + cursos + FAQ -->
@@ -317,13 +345,19 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
             <div style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#5b5344;line-height:1.4"><span style="color:#79693A;font-weight:700">✓</span><span>Certificado profesional</span></div>
           </div>
         </div>
-        <div style="border-top:1px solid rgba(121,105,58,.12);padding-top:16px;display:flex;flex-direction:column;gap:9px;margin-bottom:20px">
-          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><span style="font-size:12.5px;color:#6b6354;letter-spacing:.03em">Online</span><span style="display:flex;align-items:baseline;gap:8px"><s style="font-size:13px;color:#a49b88">$60.000</s><b style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#79693A;font-weight:600">$30.000</b></span></div>
-          <div style="display:flex;flex-direction:column;gap:5px">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><span style="font-size:12.5px;color:#6b6354;letter-spacing:.03em">Presencial</span><b style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#3a3428;font-weight:600">$150.000</b></div>
-            <div style="font-size:11.5px;color:#79693A;font-weight:500;line-height:1.35">Incluye curso online de regalo</div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#7a7364;line-height:1.3"><span style="font-size:12px">💳</span>o en cuotas con Mercado Pago</div>
+        <div class="pblock">
+          <div class="plaunch">★ Precio de lanzamiento · por tiempo limitado</div>
+          <div class="pline">
+            <div class="pmod">Curso Online<small>Acceso de por vida + certificado</small></div>
+            <div class="pamt"><span class="pwas">$60.000</span><span class="pnow">$30.000</span></div>
           </div>
+          <div class="pdiv"></div>
+          <div class="pline">
+            <div class="pmod">Clase Presencial 1 a 1<small>Con todos los materiales</small></div>
+            <div class="pamt"><span class="pnow-d">$150.000</span></div>
+          </div>
+          <div class="pgift">✦ Te llevas el curso online de regalo</div>
+          <div class="pcuota"><span style="font-size:12px">💳</span> Págalo en cuotas con Mercado Pago</div>
         </div>
         <button onclick="openModal('lif')" class="btnG" style="text-align:center;background:#79693A;color:#fff;padding:14px;border-radius:100px;font-size:14.5px;font-weight:500;letter-spacing:.02em;width:100%">Empezar ahora</button>
         <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;font-size:11px;color:#8a8271;text-align:center;line-height:1.3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#79693A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span>Pago seguro · Acceso inmediato · Certificado incluido</span></div>
@@ -343,13 +377,19 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
             <div style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#5b5344;line-height:1.4"><span style="color:#79693A;font-weight:700">✓</span><span>Certificado profesional</span></div>
           </div>
         </div>
-        <div style="border-top:1px solid rgba(121,105,58,.12);padding-top:16px;display:flex;flex-direction:column;gap:9px;margin-bottom:20px">
-          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><span style="font-size:12.5px;color:#6b6354;letter-spacing:.03em">Online</span><span style="display:flex;align-items:baseline;gap:8px"><s style="font-size:13px;color:#a49b88">$100.000</s><b style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#79693A;font-weight:600">$40.000</b></span></div>
-          <div style="display:flex;flex-direction:column;gap:5px">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><span style="font-size:12.5px;color:#6b6354;letter-spacing:.03em">Presencial</span><b style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#3a3428;font-weight:600">$150.000</b></div>
-            <div style="font-size:11.5px;color:#79693A;font-weight:500;line-height:1.35">Incluye curso online de regalo</div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#7a7364;line-height:1.3"><span style="font-size:12px">💳</span>o en cuotas con Mercado Pago</div>
+        <div class="pblock">
+          <div class="plaunch">★ Precio de lanzamiento · por tiempo limitado</div>
+          <div class="pline">
+            <div class="pmod">Curso Online<small>Acceso de por vida + certificado</small></div>
+            <div class="pamt"><span class="pwas">$100.000</span><span class="pnow">$40.000</span></div>
           </div>
+          <div class="pdiv"></div>
+          <div class="pline">
+            <div class="pmod">Clase Presencial 1 a 1<small>Con todos los materiales</small></div>
+            <div class="pamt"><span class="pnow-d">$150.000</span></div>
+          </div>
+          <div class="pgift">✦ Te llevas el curso online de regalo</div>
+          <div class="pcuota"><span style="font-size:12px">💳</span> Págalo en cuotas con Mercado Pago</div>
         </div>
         <button onclick="openModal('cor')" class="btnG" style="text-align:center;background:#79693A;color:#fff;padding:14px;border-radius:100px;font-size:14.5px;font-weight:500;letter-spacing:.02em;width:100%">Empezar ahora</button>
         <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;font-size:11px;color:#8a8271;text-align:center;line-height:1.3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#79693A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span>Pago seguro · Acceso inmediato · Certificado incluido</span></div>
@@ -368,13 +408,19 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
             <div style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#5b5344;line-height:1.4"><span style="color:#79693A;font-weight:700">✓</span><span>Certificado profesional</span></div>
           </div>
         </div>
-        <div style="border-top:1px solid rgba(121,105,58,.12);padding-top:16px;display:flex;flex-direction:column;gap:9px;margin-bottom:20px">
-          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><span style="font-size:12.5px;color:#6b6354;letter-spacing:.03em">Online</span><span style="display:flex;align-items:baseline;gap:8px"><s style="font-size:13px;color:#a49b88">$40.000</s><b style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#79693A;font-weight:600">$20.000</b></span></div>
-          <div style="display:flex;flex-direction:column;gap:5px">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><span style="font-size:12.5px;color:#6b6354;letter-spacing:.03em">Presencial</span><b style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#3a3428;font-weight:600">$150.000</b></div>
-            <div style="font-size:11.5px;color:#79693A;font-weight:500;line-height:1.35">Incluye curso online de regalo</div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#7a7364;line-height:1.3"><span style="font-size:12px">💳</span>o en cuotas con Mercado Pago</div>
+        <div class="pblock">
+          <div class="plaunch">★ Precio de lanzamiento · por tiempo limitado</div>
+          <div class="pline">
+            <div class="pmod">Curso Online<small>Acceso de por vida + certificado</small></div>
+            <div class="pamt"><span class="pwas">$40.000</span><span class="pnow">$20.000</span></div>
           </div>
+          <div class="pdiv"></div>
+          <div class="pline">
+            <div class="pmod">Clase Presencial 1 a 1<small>Con todos los materiales</small></div>
+            <div class="pamt"><span class="pnow-d">$150.000</span></div>
+          </div>
+          <div class="pgift">✦ Te llevas el curso online de regalo</div>
+          <div class="pcuota"><span style="font-size:12px">💳</span> Págalo en cuotas con Mercado Pago</div>
         </div>
         <button onclick="openModal('tej')" class="btnG" style="text-align:center;background:#79693A;color:#fff;padding:14px;border-radius:100px;font-size:14.5px;font-weight:500;letter-spacing:.02em;width:100%">Empezar ahora</button>
         <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;font-size:11px;color:#8a8271;text-align:center;line-height:1.3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#79693A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span>Pago seguro · Acceso inmediato · Certificado incluido</span></div>
@@ -393,13 +439,19 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
             <div style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#5b5344;line-height:1.4"><span style="color:#79693A;font-weight:700">✓</span><span>Certificado profesional</span></div>
           </div>
         </div>
-        <div style="border-top:1px solid rgba(121,105,58,.12);padding-top:16px;display:flex;flex-direction:column;gap:9px;margin-bottom:20px">
-          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><span style="font-size:12.5px;color:#6b6354;letter-spacing:.03em">Online</span><span style="display:flex;align-items:baseline;gap:8px"><s style="font-size:13px;color:#a49b88">$60.000</s><b style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#79693A;font-weight:600">$20.000</b></span></div>
-          <div style="display:flex;flex-direction:column;gap:5px">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><span style="font-size:12.5px;color:#6b6354;letter-spacing:.03em">Presencial</span><b style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#3a3428;font-weight:600">$150.000</b></div>
-            <div style="font-size:11.5px;color:#79693A;font-weight:500;line-height:1.35">Incluye curso online de regalo</div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#7a7364;line-height:1.3"><span style="font-size:12px">💳</span>o en cuotas con Mercado Pago</div>
+        <div class="pblock">
+          <div class="plaunch">★ Precio de lanzamiento · por tiempo limitado</div>
+          <div class="pline">
+            <div class="pmod">Curso Online<small>Acceso de por vida + certificado</small></div>
+            <div class="pamt"><span class="pwas">$60.000</span><span class="pnow">$20.000</span></div>
           </div>
+          <div class="pdiv"></div>
+          <div class="pline">
+            <div class="pmod">Clase Presencial 1 a 1<small>Con todos los materiales</small></div>
+            <div class="pamt"><span class="pnow-d">$150.000</span></div>
+          </div>
+          <div class="pgift">✦ Te llevas el curso online de regalo</div>
+          <div class="pcuota"><span style="font-size:12px">💳</span> Págalo en cuotas con Mercado Pago</div>
         </div>
         <button onclick="openModal('lam')" class="btnG" style="text-align:center;background:#79693A;color:#fff;padding:14px;border-radius:100px;font-size:14.5px;font-weight:500;letter-spacing:.02em;width:100%">Empezar ahora</button>
         <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;font-size:11px;color:#8a8271;text-align:center;line-height:1.3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#79693A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span>Pago seguro · Acceso inmediato · Certificado incluido</span></div>
@@ -418,12 +470,13 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
             <div style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#5b5344;line-height:1.4"><span style="color:#79693A;font-weight:700">✓</span><span>Certificado profesional</span></div>
           </div>
         </div>
-        <div style="border-top:1px solid rgba(121,105,58,.12);padding-top:16px;display:flex;flex-direction:column;gap:9px;margin-bottom:20px">
-          <div style="display:flex;flex-direction:column;gap:5px">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><span style="font-size:12.5px;color:#6b6354;letter-spacing:.03em">Presencial</span><b style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#3a3428;font-weight:600">$150.000</b></div>
-            <div style="font-size:11.5px;color:#79693A;font-weight:500;line-height:1.35">Práctica 1 a 1 · materiales incluidos</div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#7a7364;line-height:1.3"><span style="font-size:12px">💳</span>o en cuotas con Mercado Pago</div>
+        <div class="pblock">
+          <div class="pline">
+            <div class="pmod">Clase Presencial 1 a 1<small>Con todos los materiales incluidos</small></div>
+            <div class="pamt"><span class="pnow">$150.000</span></div>
           </div>
+          <div class="pgift">✦ Certificado profesional + asesoría personalizada</div>
+          <div class="pcuota"><span style="font-size:12px">💳</span> Págalo en cuotas con Mercado Pago</div>
         </div>
         <button onclick="openModal('man')" class="btnG" style="text-align:center;background:#79693A;color:#fff;padding:14px;border-radius:100px;font-size:14.5px;font-weight:500;letter-spacing:.02em;width:100%">Empezar ahora</button>
         <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;font-size:11px;color:#8a8271;text-align:center;line-height:1.3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#79693A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span>Pago seguro · Certificado incluido</span></div>
@@ -442,12 +495,13 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
             <div style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#5b5344;line-height:1.4"><span style="color:#79693A;font-weight:700">✓</span><span>Certificado profesional</span></div>
           </div>
         </div>
-        <div style="border-top:1px solid rgba(121,105,58,.12);padding-top:16px;display:flex;flex-direction:column;gap:9px;margin-bottom:20px">
-          <div style="display:flex;flex-direction:column;gap:5px">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><span style="font-size:12.5px;color:#6b6354;letter-spacing:.03em">Presencial</span><b style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#3a3428;font-weight:600">$150.000</b></div>
-            <div style="font-size:11.5px;color:#79693A;font-weight:500;line-height:1.35">Práctica 1 a 1 · materiales incluidos</div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#7a7364;line-height:1.3"><span style="font-size:12px">💳</span>o en cuotas con Mercado Pago</div>
+        <div class="pblock">
+          <div class="pline">
+            <div class="pmod">Clase Presencial 1 a 1<small>Con todos los materiales incluidos</small></div>
+            <div class="pamt"><span class="pnow">$150.000</span></div>
           </div>
+          <div class="pgift">✦ Certificado profesional + asesoría personalizada</div>
+          <div class="pcuota"><span style="font-size:12px">💳</span> Págalo en cuotas con Mercado Pago</div>
         </div>
         <button onclick="openModal('mav')" class="btnG" style="text-align:center;background:#79693A;color:#fff;padding:14px;border-radius:100px;font-size:14.5px;font-weight:500;letter-spacing:.02em;width:100%">Empezar ahora</button>
         <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;font-size:11px;color:#8a8271;text-align:center;line-height:1.3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#79693A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span>Pago seguro · Certificado incluido</span></div>
