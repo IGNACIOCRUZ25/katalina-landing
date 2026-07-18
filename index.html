@@ -87,6 +87,7 @@ button{font-family:'Jost',sans-serif;cursor:pointer;border:none;background:none;
 @media(prefers-reduced-motion:reduce){.rv,[data-stag]>*,.floatWrap{transition:none!important;animation:none!important;opacity:1!important;transform:none!important}}
 @media(max-width:760px){
   .navMain{display:none!important}
+  .navToggle{display:block!important}
   .heroGrid,.gridBenef,.gridCursos,.gridTesti,.gridInc,.gridAbout,.gridAgenda{grid-template-columns:1fr!important;gap:30px!important}
   .gridGal{grid-template-columns:1fr 1fr!important}
   .h1Hero{font-size:38px!important}
@@ -94,6 +95,8 @@ button{font-family:'Jost',sans-serif;cursor:pointer;border:none;background:none;
   .agendaCard{padding:34px 22px!important}
   .padX{padding-left:20px!important;padding-right:20px!important}
   .floatWrap{bottom:80px!important}
+  .floatWrap .floatBtn:first-child{display:none!important}
+  .floatWrap .floatBtn{width:50px!important;height:50px!important}
   .heroImgWrap{max-width:100%!important}
 }
 .modal-overlay{position:fixed;inset:0;z-index:100;background:rgba(40,36,28,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px}
@@ -240,7 +243,20 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
       <a href="https://katalinasalon.skedu.com/" target="_blank" class="btnG" style="color:#79693A;font-weight:500;border:1px solid rgba(121,105,58,.35);padding:9px 16px;border-radius:100px;font-size:13px">Agendar servicios del salón</a>
       <a href="#cursos" class="btnG" style="background:#79693A;color:#fff;padding:11px 22px;border-radius:100px;font-weight:500;letter-spacing:.02em">Ver cursos</a>
     </nav>
+    <button class="navToggle" aria-label="Abrir menú" aria-expanded="false" onclick="toggleMenu()" style="display:none;background:none;border:0;cursor:pointer;padding:6px;flex:none">
+      <span style="display:block;width:24px;height:2px;background:#79693A;border-radius:2px"></span>
+      <span style="display:block;width:24px;height:2px;background:#79693A;border-radius:2px;margin-top:6px"></span>
+      <span style="display:block;width:24px;height:2px;background:#79693A;border-radius:2px;margin-top:6px"></span>
+    </button>
   </div>
+  <nav id="mobileMenu" style="display:none;flex-direction:column;padding:4px 22px 14px">
+    <a href="#cursos" onclick="closeMenu()" style="padding:13px 2px;color:#3a3428;font-size:16px;text-decoration:none;border-bottom:1px solid rgba(121,105,58,.1)">Cursos</a>
+    <a href="#resultados" onclick="closeMenu()" style="padding:13px 2px;color:#3a3428;font-size:16px;text-decoration:none;border-bottom:1px solid rgba(121,105,58,.1)">Resultados</a>
+    <a href="#agenda" onclick="closeMenu()" style="padding:13px 2px;color:#3a3428;font-size:16px;text-decoration:none;border-bottom:1px solid rgba(121,105,58,.1)">Presencial</a>
+    <a href="/aprende" onclick="closeMenu()" style="padding:13px 2px;color:#3a3428;font-size:16px;text-decoration:none;border-bottom:1px solid rgba(121,105,58,.1)">Aprende</a>
+    <a href="https://katalinasalon.skedu.com/" target="_blank" onclick="closeMenu()" style="padding:13px 2px;color:#79693A;font-size:16px;text-decoration:none;border-bottom:1px solid rgba(121,105,58,.1)">Agendar servicios del salón</a>
+    <a href="#cursos" onclick="closeMenu()" style="margin-top:14px;text-align:center;background:#79693A;color:#fff;padding:14px 22px;border-radius:100px;font-size:15px;font-weight:500;text-decoration:none">Ver cursos</a>
+  </nav>
 </header>
 
 <!-- URGENCY BAR -->
@@ -847,6 +863,8 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
 
 <script>
 const WHATSAPP = '56937142655';
+function toggleMenu(){var m=document.getElementById('mobileMenu');var b=document.querySelector('.navToggle');var open=m.style.display==='flex';m.style.display=open?'none':'flex';if(b)b.setAttribute('aria-expanded',String(!open));}
+function closeMenu(){var m=document.getElementById('mobileMenu');if(m)m.style.display='none';var b=document.querySelector('.navToggle');if(b)b.setAttribute('aria-expanded','false');}
 // Contador honesto por visitante: se guarda en el dispositivo y NO se reinicia al recargar.
 const CD_WINDOW = (3*24*60*60 + 6*60*60)*1000; // 3 días 6 h desde la primera visita
 const DEADLINE = (() => {
