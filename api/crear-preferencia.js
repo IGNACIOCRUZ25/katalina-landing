@@ -2,14 +2,7 @@
 // Los precios se calculan AQUÍ (servidor) para que no se puedan alterar desde el navegador.
 // Requiere la variable de entorno MP_ACCESS_TOKEN (se configura en Vercel).
 
-const CURSOS = {
-  lif: { name: 'Lifting de pestañas',                              online: 30000, pres: 150000 },
-  cor: { name: 'Lifting de pestañas · Técnica Coreana',           online: 40000, pres: 150000 },
-  tej: { name: 'Diseño de cejas con tinte',                       online: 20000, pres: 150000 },
-  lam: { name: 'Laminado de cejas',                               online: 20000, pres: 150000 },
-  man: { name: 'Manicure inicial · Esmaltado permanente con torno',              pres: 150000 },
-  mav: { name: 'Manicure avanzada · Técnica rusa y gel',                         pres: 150000 },
-};
+const { CURSOS } = require('./_cursos');
 
 async function leerBody(req) {
   if (req.body && typeof req.body === 'object') return req.body;
@@ -70,11 +63,14 @@ module.exports = async function handler(req, res) {
       },
       auto_return: 'approved',
       statement_descriptor: 'KATALINA',
+      notification_url: `${base}/api/webhook-mercadopago`,
       external_reference: `${courseId}-${mod}-${Date.now()}`,
       metadata: {
         curso: courseId,
         modalidad: mod,
         bump: bumpCourseId || null,
+        nombre: nombre || null,
+        email: email || null,
         telefono: telefono || null,
       },
     };
