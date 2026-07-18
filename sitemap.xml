@@ -6,4 +6,28 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://katalinasalon.cl/aprende</loc>
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://katalinasalon.cl/aprende/como-empezar-pestanas</loc>
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://katalinasalon.cl/aprende/lifting-vs-extensiones</loc>
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://katalinasalon.cl/aprende/laminado-y-diseno-de-cejas</loc>
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
