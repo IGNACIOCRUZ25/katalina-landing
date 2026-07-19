@@ -773,9 +773,35 @@ a:focus-visible,button:focus-visible,[onclick]:focus-visible{outline:2px solid #
         <button onclick="backToModalidad()" style="font-size:13px;color:#79693A;margin-bottom:16px;display:block">← Volver</button>
         <div style="font-size:13px;color:#6b6354;margin-bottom:16px">Paso 2 de 3 · Tus datos</div>
         <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:22px">
-          <input id="f-nombre" placeholder="Nombre y apellido" style="border:1px solid rgba(121,105,58,.22);border-radius:12px;padding:13px 15px;font-size:14px;color:#3a3428;background:#fff;font-family:'Jost',sans-serif">
-          <input id="f-fono" type="tel" placeholder="+56 9 1234 5678" style="border:1px solid rgba(121,105,58,.22);border-radius:12px;padding:13px 15px;font-size:14px;color:#3a3428;background:#fff;font-family:'Jost',sans-serif">
-          <input id="f-correo" type="email" placeholder="Correo electrónico" style="border:1px solid rgba(121,105,58,.22);border-radius:12px;padding:13px 15px;font-size:14px;color:#3a3428;background:#fff;font-family:'Jost',sans-serif">
+          <div>
+            <input id="f-nombre" oninput="setErr('nombre','')" placeholder="Nombre y apellido" style="width:100%;box-sizing:border-box;border:1px solid rgba(121,105,58,.22);border-radius:12px;padding:13px 15px;font-size:14px;color:#3a3428;background:#fff;font-family:'Jost',sans-serif">
+            <div id="err-nombre" style="display:none;font-size:11.5px;color:#a5432f;margin-top:5px;padding-left:4px"></div>
+          </div>
+          <div>
+            <div style="display:flex;gap:8px">
+              <select id="f-cc" style="flex:none;width:104px;box-sizing:border-box;border:1px solid rgba(121,105,58,.22);border-radius:12px;padding:13px 8px;font-size:14px;color:#3a3428;background:#fff;font-family:'Jost',sans-serif">
+                <option value="56" selected>🇨🇱 +56</option>
+                <option value="54">🇦🇷 +54</option>
+                <option value="51">🇵🇪 +51</option>
+                <option value="57">🇨🇴 +57</option>
+                <option value="52">🇲🇽 +52</option>
+                <option value="591">🇧🇴 +591</option>
+                <option value="593">🇪🇨 +593</option>
+                <option value="598">🇺🇾 +598</option>
+                <option value="595">🇵🇾 +595</option>
+                <option value="58">🇻🇪 +58</option>
+                <option value="55">🇧🇷 +55</option>
+                <option value="34">🇪🇸 +34</option>
+                <option value="1">🇺🇸 +1</option>
+              </select>
+              <input id="f-fono" type="tel" inputmode="numeric" autocomplete="tel-national" oninput="soloDigitos(this)" placeholder="9 1234 5678" style="flex:1;min-width:0;border:1px solid rgba(121,105,58,.22);border-radius:12px;padding:13px 15px;font-size:14px;color:#3a3428;background:#fff;font-family:'Jost',sans-serif">
+            </div>
+            <div id="err-fono" style="display:none;font-size:11.5px;color:#a5432f;margin-top:5px;padding-left:4px"></div>
+          </div>
+          <div>
+            <input id="f-correo" type="email" inputmode="email" autocomplete="email" oninput="setErr('correo','')" placeholder="Correo electrónico" style="width:100%;box-sizing:border-box;border:1px solid rgba(121,105,58,.22);border-radius:12px;padding:13px 15px;font-size:14px;color:#3a3428;background:#fff;font-family:'Jost',sans-serif">
+            <div id="err-correo" style="display:none;font-size:11.5px;color:#a5432f;margin-top:5px;padding-left:4px"></div>
+          </div>
         </div>
         <button onclick="goPago()" class="btnG" style="display:block;width:100%;text-align:center;background:#79693A;color:#fff;padding:15px;border-radius:100px;font-size:15.5px;font-weight:500;letter-spacing:.02em">Continuar</button>
         <div style="text-align:center;font-size:11.5px;color:#9a9182;margin-top:12px">Tus datos son solo para coordinar tu inscripción</div>
@@ -1032,6 +1058,8 @@ function openModal(id){
   document.getElementById('f-nombre').value='';
   document.getElementById('f-fono').value='';
   document.getElementById('f-correo').value='';
+  document.getElementById('f-cc').value='56';
+  setErr('nombre',''); setErr('fono',''); setErr('correo','');
   document.getElementById('modal-course-name').textContent = selCourse.name;
   renderOpts();
   showStep('modalidad');
@@ -1092,8 +1120,31 @@ function pick(m){
 }
 function backToModalidad(){ showStep('modalidad'); }
 function backToDatos(){ showStep('form'); }
+function setErr(campo,msg){
+  const e=document.getElementById('err-'+campo);
+  if(e){ e.textContent=msg||''; e.style.display=msg?'block':'none'; }
+  const box=document.getElementById('f-'+campo);
+  if(box) box.style.borderColor = msg ? '#a5432f' : 'rgba(121,105,58,.22)';
+}
+function soloDigitos(el){ el.value=el.value.replace(/\D+/g,''); setErr('fono',''); }
+function telefonoCompleto(){
+  const cc=document.getElementById('f-cc').value;
+  const num=document.getElementById('f-fono').value.replace(/\D+/g,'');
+  return '+'+cc+num;
+}
+function validarDatos(){
+  let ok=true;
+  const nombre=document.getElementById('f-nombre').value.trim();
+  const fono=document.getElementById('f-fono').value.replace(/\D+/g,'');
+  const correo=document.getElementById('f-correo').value.trim();
+  const emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(nombre.length<2){ setErr('nombre','Escribe tu nombre y apellido'); ok=false; } else setErr('nombre','');
+  if(fono.length<8||fono.length>15){ setErr('fono','Ingresa un número válido (solo dígitos)'); ok=false; } else setErr('fono','');
+  if(!emailRe.test(correo)){ setErr('correo','Ingresa un correo válido (ej: nombre@correo.com)'); ok=false; } else setErr('correo','');
+  return ok;
+}
 function goPago(){
-  if(!document.getElementById('f-nombre').value.trim()||!document.getElementById('f-fono').value.trim()||!document.getElementById('f-correo').value.trim()){ alert('Por favor completa todos los campos'); return; }
+  if(!validarDatos()) return;
   const c=selCourse, bump=courses.find(b=>b.id!==c.id&&b.online);
   bumpOn=false;
   document.getElementById('bump-check').textContent='';
@@ -1120,7 +1171,7 @@ function genCode(){ return selCourse.id.toUpperCase()+'-'+Math.random().toString
 
 async function submitForm(){
   const nombre=document.getElementById('f-nombre').value.trim();
-  const fono=document.getElementById('f-fono').value.trim();
+  const fono=telefonoCompleto();
   const correo=document.getElementById('f-correo').value.trim();
   const bumpCourse = bumpOn ? courses.find(b=>b.id!==selCourse.id && b.online) : null;
   const btn=document.getElementById('btn-pagar');
