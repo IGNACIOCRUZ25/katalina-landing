@@ -74,8 +74,11 @@ El pago y la entrega automática ya están programados. Para activarlos, agrega 
 | `RESEND_API_KEY` | Clave para enviar correos automáticos | resend.com → API Keys |
 | `EMAIL_FROM` | Remitente de los correos | Ej: `Katalina Beauty Salon <hola@katalinasalon.cl>` (dominio verificado en Resend) |
 | `EMAIL_NOTIF` | Correo donde llegan los avisos de venta | El correo de Katalina |
+| `MP_WEBHOOK_SECRET` | **Clave para validar que los avisos vengan de Mercado Pago** (anti-fraude) | mercadopago.cl/developers/panel → tu app → Webhooks → "Clave secreta" |
 
 Opcionales: `SKEDU_URL` (por defecto tu Skedu), `WHATSAPP` (por defecto +56 9 3714 2655).
+
+**Anti-entrega-duplicada (recomendado):** conecta un **Vercel KV** al proyecto (Vercel → Storage → Create → KV → Connect). Al conectarlo, Vercel agrega solas las variables `KV_REST_API_URL` y `KV_REST_API_TOKEN`, y el sistema deja de poder entregar dos veces el mismo pago aunque Mercado Pago reenvíe el aviso. Sin KV igual funciona, pero la protección es sólo "best-effort".
 
 **Enlaces de los cursos:** los enlaces de Drive de cada curso van en `api/_cursos.js` (campo `drive`).
 Envíame los enlaces y los dejo cargados.

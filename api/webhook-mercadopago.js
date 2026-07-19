@@ -5,6 +5,8 @@
 
 const { CURSOS } = require('./_cursos');
 const { entregarCurso } = require('./_entrega');
+const { validarFirma } = require('./_firma');
+const { reclamarEntrega, liberarEntrega } = require('./_idempotencia');
 
 async function leerBody(req) {
   if (req.body && typeof req.body === 'object') return req.body;
@@ -33,6 +35,13 @@ module.exports = async function handler(req, res) {
     if (tipo && tipo !== 'payment') { res.status(200).json({ ok: true, ignorado: tipo }); return; }
     if (!paymentId) { res.status(200).json({ ok: true, nota: 'sin_id' }); return; }
 
+    // 0) Firma: nos aseguramos de que el aviso venga REALMENTE de Mercado Pago.
+    //    El id de la firma es el 'data.id' de la URL. Si aún no hay MP_WEBHOOK_SECRET,
+    //    seguimos (la re-verificación del pago de abajo protege igual).
+    const idFirma = q['data.id'] || (body.data && body.data.id) || paymentId;
+    const firma = validarFirma(req, idFirma);
+    if (firma === 'invalida') { res.status(401).json({ ok: false, error: 'firma_invalida' }); return; }
+
     // 1) Verificación anti-fraude: consultamos el pago REAL a Mercado Pago
     const r = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -51,15 +60,25 @@ module.exports = async function handler(req, res) {
     const courseId = meta.curso;
     if (!CURSOS[courseId]) { res.status(200).json({ ok: true, nota: 'curso_desconocido' }); return; }
 
-    await entregarCurso({
-      courseId,
-      modality: meta.modalidad === 'presencial' ? 'presencial' : 'online',
-      bumpCourseId: meta.bump || null,
-      nombre: meta.nombre || (pago.payer && (pago.payer.first_name || '')) || '',
-      email: meta.email || (pago.payer && pago.payer.email) || '',
-      telefono: meta.telefono || '',
-      monto: pago.transaction_amount || 0,
-    });
+    // 4) Idempotencia: si este pago ya se entregó antes, no lo repetimos.
+    const primeraVez = await reclamarEntrega(String(paymentId));
+    if (!primeraVez) { res.status(200).json({ ok: true, nota: 'ya_entregado' }); return; }
+
+    try {
+      await entregarCurso({
+        courseId,
+        modality: meta.modalidad === 'presencial' ? 'presencial' : 'online',
+        bumpCourseId: meta.bump || null,
+        nombre: meta.nombre || (pago.payer && (pago.payer.first_name || '')) || '',
+        email: meta.email || (pago.payer && pago.payer.email) || '',
+        telefono: meta.telefono || '',
+        monto: pago.transaction_amount || 0,
+      });
+    } catch (e) {
+      // Si la entrega falla, liberamos la marca para poder reintentar si vuelve el aviso.
+      await liberarEntrega(String(paymentId));
+      throw e;
+    }
 
     res.status(200).json({ ok: true, entregado: true });
   } catch (e) {
