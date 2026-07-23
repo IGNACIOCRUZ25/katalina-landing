@@ -12,7 +12,7 @@ function waLink(msg) { return 'https://wa.me/' + WHATSAPP + '?text=' + encodeURI
 function bloqueAcceso(curso, etiqueta) {
   const link = curso.drive
     ? `<a href="${curso.drive}" style="display:inline-block;background:${GOLD};color:#fff;text-decoration:none;padding:12px 22px;border-radius:100px;font-weight:600;font-size:15px">Acceder al curso →</a>`
-    : `<span style="color:#a5432f;font-size:13px">Te enviaremos el acceso a la brevedad.</span>`;
+    : `<span style="color:#a5432f;font-size:13px">Recibirás el acceso a tu curso online en este mismo correo, dentro de las próximas horas. ✨</span>`;
   return `
     <div style="border:1px solid #e4ddcd;border-radius:12px;padding:18px 20px;margin:0 0 14px">
       <div style="font-size:12px;letter-spacing:.06em;color:#9a9182;text-transform:uppercase;margin-bottom:4px">${etiqueta}</div>
@@ -68,6 +68,19 @@ function emailAlumna({ nombre, courseId, modality, bumpCourseId }) {
 function emailKatalina({ nombre, email, telefono, courseId, modality, bumpCourseId, monto }) {
   const curso = CURSOS[courseId];
   const extra = bumpCourseId && CURSOS[bumpCourseId] ? ` + ${CURSOS[bumpCourseId].name} (online)` : '';
+  const esPresencial = modality === 'presencial';
+  const bumpNombre = bumpCourseId && CURSOS[bumpCourseId] ? CURSOS[bumpCourseId].name : '';
+  const queDarEnHotmart = esPresencial
+    ? `el curso <b>online</b> de "${curso.name}" (va de regalo con el presencial)`
+    : `el curso <b>${curso.name}</b> (online)`;
+  const accionHotmart = `
+    <div style="margin-top:18px;border:1px solid #e4ddcd;border-left:4px solid ${GOLD};border-radius:10px;padding:14px 16px;background:#f5f1e9">
+      <div style="font-size:13px;color:#3a3428;line-height:1.55">
+        ✅ <b>Acción para ti:</b> dale acceso <b>gratis en Hotmart</b> a <b>${email || 'la alumna'}</b>: ${queDarEnHotmart}${bumpNombre ? ` y también <b>${bumpNombre}</b> (online)` : ''}.
+        ${esPresencial ? '<br>📅 Además, coordina con ella la clase presencial.' : ''}
+        <br><span style="font-size:11.5px;color:#8a8272">En Hotmart: tu curso → Alumnos → Agregar/Importar alumno, usando ese correo.</span>
+      </div>
+    </div>`;
   return `
   <div style="font-family:Arial,sans-serif;max-width:520px;margin:0 auto;padding:20px">
     <h2 style="font-family:Georgia,serif;color:${GOLD}">💰 Nueva venta confirmada</h2>
@@ -79,6 +92,7 @@ function emailKatalina({ nombre, email, telefono, courseId, modality, bumpCourse
       <tr><td style="padding:6px 0;color:#6b6354">Correo</td><td style="padding:6px 0">${email || '—'}</td></tr>
       <tr><td style="padding:6px 0;color:#6b6354">Teléfono</td><td style="padding:6px 0">${telefono || '—'}</td></tr>
     </table>
+    ${accionHotmart}
     ${telefono ? `<p style="margin-top:16px"><a href="${waLink('Hola ' + (nombre || '') + '! Bienvenida a Katalina Beauty Salon Academy 💛 Vi que compraste ' + curso.name + '. Cualquier duda me dices por aquí.')}" style="display:inline-block;background:#25D366;color:#fff;text-decoration:none;padding:11px 20px;border-radius:100px;font-weight:600;font-size:14px">Dar la bienvenida por WhatsApp</a></p>` : ''}
   </div>`;
 }
