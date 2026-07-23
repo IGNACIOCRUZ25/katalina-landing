@@ -933,11 +933,15 @@ const DEADLINE = (() => {
   } catch (e) { return Date.now() + CD_WINDOW; }
 })();
 
+// Venta ONLINE por Hotmart: pegá el link de pago de Hotmart de cada curso en el campo 'hotmart'.
+//   Con link  -> el botón "Inscribirme" (modalidad Online) lleva al checkout de Hotmart con nombre/correo/teléfono ya prellenados.
+//   Sin link  -> sigue el flujo actual de MercadoPago (venta con entrega manual mientras tanto).
+//   Los cursos PRESENCIALES siempre usan MercadoPago (no cambian).
 const courses = [
-  { id:'lif', name:'Lifting de pestañas', tag:'ONLINE · PRESENCIAL', desc:'Aprende desde cero a realizar lifting de pestañas con técnica clásica y químico parcializado. Ideal para iniciar o perfeccionar tu trabajo y empezar a facturar.', feats:['Técnica clásica + químico parcializado','Ideal para principiantes','Certificado profesional'], online:60000, offer:30000, pres:150000, presWas:200000, img:'assets/antesydps-lifting-nuevo.jpeg', alt:'Antes y después lifting de pestañas' },
-  { id:'cor', name:'Lifting de pestañas · Técnica Coreana', tag:'ONLINE · PRESENCIAL', desc:'Domina una técnica avanzada de lifting enfocada en resultados más prolijos, saludables y modernos: la más solicitada hoy.', feats:['Técnica avanzada','Enfoque en el cuidado de la pestaña natural','Certificado profesional'], online:100000, offer:40000, pres:150000, presWas:250000, popular:true, img:'assets/curso-coreana-fix.jpeg', alt:'Técnica coreana lifting' },
-  { id:'tej', name:'Diseño de cejas con tinte', tag:'ONLINE · PRESENCIAL', desc:'Aprende a diseñar, definir y armonizar las cejas utilizando visagismo, perfilado con cera y aplicación correcta de tinte.', feats:['Diseño según tipo de rostro','Perfilado y aplicación de tinte','Certificado profesional'], online:40000, offer:20000, pres:130000, presWas:200000, img:'assets/curso-cejas-tinte-fix.jpeg', alt:'Diseño de cejas con tinte' },
-  { id:'lam', name:'Laminado de cejas', tag:'ONLINE · PRESENCIAL', desc:'Aprende a ordenar, direccionar y transformar las cejas naturales con una técnica profesional y de alta demanda.', feats:['Técnica paso a paso','Ideal para cejas rebeldes o poco definidas','Certificado profesional'], online:60000, offer:30000, pres:150000, presWas:200000, img:'assets/curso-laminado-fix.jpeg', alt:'Laminado de cejas' },
+  { id:'lif', name:'Lifting de pestañas', tag:'ONLINE · PRESENCIAL', desc:'Aprende desde cero a realizar lifting de pestañas con técnica clásica y químico parcializado. Ideal para iniciar o perfeccionar tu trabajo y empezar a facturar.', feats:['Técnica clásica + químico parcializado','Ideal para principiantes','Certificado profesional'], online:60000, offer:30000, pres:150000, presWas:200000, hotmart:'', img:'assets/antesydps-lifting-nuevo.jpeg', alt:'Antes y después lifting de pestañas' },
+  { id:'cor', name:'Lifting de pestañas · Técnica Coreana', tag:'ONLINE · PRESENCIAL', desc:'Domina una técnica avanzada de lifting enfocada en resultados más prolijos, saludables y modernos: la más solicitada hoy.', feats:['Técnica avanzada','Enfoque en el cuidado de la pestaña natural','Certificado profesional'], online:100000, offer:40000, pres:150000, presWas:250000, popular:true, hotmart:'', img:'assets/curso-coreana-fix.jpeg', alt:'Técnica coreana lifting' },
+  { id:'tej', name:'Diseño de cejas con tinte', tag:'ONLINE · PRESENCIAL', desc:'Aprende a diseñar, definir y armonizar las cejas utilizando visagismo, perfilado con cera y aplicación correcta de tinte.', feats:['Diseño según tipo de rostro','Perfilado y aplicación de tinte','Certificado profesional'], online:40000, offer:20000, pres:130000, presWas:200000, hotmart:'', img:'assets/curso-cejas-tinte-fix.jpeg', alt:'Diseño de cejas con tinte' },
+  { id:'lam', name:'Laminado de cejas', tag:'ONLINE · PRESENCIAL', desc:'Aprende a ordenar, direccionar y transformar las cejas naturales con una técnica profesional y de alta demanda.', feats:['Técnica paso a paso','Ideal para cejas rebeldes o poco definidas','Certificado profesional'], online:60000, offer:30000, pres:150000, presWas:200000, hotmart:'', img:'assets/curso-laminado-fix.jpeg', alt:'Laminado de cejas' },
   { id:'man', name:'Manicure inicial · Esmaltado permanente con torno', tag:'SOLO PRESENCIAL', desc:'Aprende desde cero el esmaltado permanente con preparación correcta de la uña y uso seguro del torno.', feats:['Esmaltado permanente desde cero','Uso correcto del torno','Certificado profesional'], pres:150000, presWas:250000, img:'assets/curso-mani-inicial.jpeg', alt:'Manicure inicial esmaltado permanente' },
   { id:'mav', name:'Manicure avanzada · Técnica rusa', tag:'SOLO PRESENCIAL', desc:'Perfecciona tu técnica con una manicure avanzada enfocada en limpieza profunda, refuerzo con gel y acabado profesional.', feats:['Técnica rusa avanzada','Requiere conocimiento previo','Certificado profesional'], pres:150000, presWas:250000, img:'assets/curso-mani-avanzada.jpeg', alt:'Manicure avanzada técnica rusa' }
 ];
@@ -1143,8 +1147,21 @@ function validarDatos(){
   if(!emailRe.test(correo)){ setErr('correo','Ingresa un correo válido (ej: nombre@correo.com)'); ok=false; } else setErr('correo','');
   return ok;
 }
+function hotmartCheckout(){
+  const base=selCourse.hotmart; if(!base) return;
+  const nombre=document.getElementById('f-nombre').value.trim();
+  const correo=document.getElementById('f-correo').value.trim();
+  const cc=document.getElementById('f-cc').value;
+  const num=document.getElementById('f-fono').value.replace(/\D+/g,'');
+  const sep=base.indexOf('?')===-1?'?':'&';
+  const url=base+sep+'name='+encodeURIComponent(nombre)+'&email='+encodeURIComponent(correo)+'&phoneac='+encodeURIComponent(cc)+'&phonenumber='+encodeURIComponent(num);
+  trackConv('add_to_cart','AddToCart',{currency:'CLP',value:selCourse.offer,items:[{item_id:selCourse.id,item_name:selCourse.name}]});
+  window.location.href=url;
+}
 function goPago(){
   if(!validarDatos()) return;
+  // Online con link de Hotmart -> checkout de Hotmart (datos prellenados). Sin link o presencial -> MercadoPago.
+  if(selModality!=='presencial' && selCourse.hotmart){ hotmartCheckout(); return; }
   const c=selCourse, bump=courses.find(b=>b.id!==c.id&&b.online);
   bumpOn=false;
   document.getElementById('bump-check').textContent='';
